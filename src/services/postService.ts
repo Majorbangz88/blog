@@ -1,11 +1,13 @@
-import { ObjectId } from 'mongoose';
 import Post, { IPost } from '../models/Post';
 
-const createNewPost = async (title: String, content: String, author: String) => {
+const createNewPost = async (title: String, content: String,
+                             author: String, imageUrl: String,) => {
   const newPost = new Post({
     title,
     content,
     author: author,
+    date: new Date(),
+    imageUrl: imageUrl,
   });
 
   await newPost.save();

@@ -2,16 +2,22 @@ import express from 'express';
 import mongoose,{ConnectOptions} from 'mongoose';
 import authRoutes from './routes/authRoutes';
 import postRoutes from './routes/postRoutes';
+import cors from 'cors';
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 
-// MongoDB connection
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+
 mongoose.connect('mongodb://localhost:27017/blog', {
   useNewUrlParser: true,
   useUnifiedTopology: true,

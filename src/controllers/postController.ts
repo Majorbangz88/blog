@@ -13,10 +13,10 @@ interface AuthRequest extends Request {
 }
 
 const createPost = async (req: AuthRequest, res: Response) => {
-  const { title, content } = req.body;
+  const { title, content, imageUrl } = req.body;
 
   try {
-    const response = await createNewPost(title, content, req.user.id);
+    const response = await createNewPost(title, content, imageUrl, req.user.id);
     res.status(201).json(response);
   } catch (error: any) {
     res.status(500).json({ message: 'Server error' });
