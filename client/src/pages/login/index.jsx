@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import '../styles/Login.css';
+import styles from './index.module.css';
+import FilledButton from "../../components/buttons/filledButton";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -9,14 +10,13 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Simple validation
         if (email === '' || password === '') {
             setError('Both fields are required');
             return;
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/login', {
+            const response = await fetch('http://localhost:5100/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,29 +39,32 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
-            <form onSubmit={handleSubmit} className="login-form">
+        <div className={styles.loginContainer}>
+            <form onSubmit={handleSubmit} className={styles.loginForm}>
                 <h2>Login</h2>
-                {error && <div className="error">{error}</div>}
-                <div className="form-group">
+                {error && <div className={styles.error}>{error}</div>}
+                <div className={styles.formGroup}>
                     <label htmlFor="email">Email</label>
                     <input
+                        className={styles.inputBox}
                         type="email"
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
+                <div className={styles.formGroup}>
                     <label htmlFor="password">Password</label>
                     <input
+                        className={styles.inputBox}
                         type="password"
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit">Login</button>
+                <FilledButton text={'Login'} background={'black'} cursor={'pointer'}
+                              padding={'15px 44%'} color={'white'} onClick={handleSubmit} />
             </form>
         </div>
     );
