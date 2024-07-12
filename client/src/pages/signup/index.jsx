@@ -31,6 +31,8 @@ const Register = () => {
             if (response.ok) {
                 setError('');
                 setSuccess('Registration successful! Please login.');
+                // Store user information in local storage
+                localStorage.setItem('user', JSON.stringify({ username, email }));
             } else {
                 setError(data.message || 'Registration failed');
             }

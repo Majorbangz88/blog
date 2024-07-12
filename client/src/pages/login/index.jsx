@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styles from './index.module.css';
 import FilledButton from "../../components/buttons/filledButton";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +31,8 @@ const Login = () => {
             if (response.ok) {
                 setError('');
                 alert('Login successful!');
-                // Handle successful login (e.g., store token, redirect)
+                localStorage.setItem('user', JSON.stringify(data.user));
+                navigate('/dashboard');
             } else {
                 setError(data.message || 'Login failed');
             }
